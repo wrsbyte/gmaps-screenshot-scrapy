@@ -11,8 +11,5 @@ wheels/
 .env
 .ruff_cache/
 
-solved/*
-!solved/.gitkeep
-*.xlsx
 data/*
 !data/.gitkeep

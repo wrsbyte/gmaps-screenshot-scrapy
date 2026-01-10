@@ -1,3 +1,5 @@
+import os
+
 # Scrapy settings for gmaps_screenshot_engine project
 #
 # For simplicity, this file contains only settings considered important or
@@ -85,3 +87,15 @@ DOWNLOAD_DELAY = 1
 
 # Set settings whose default value is deprecated to a future-proof value
 FEED_EXPORT_ENCODING = "utf-8"
+
+DUPEFILTER_CLASS = "scrapy_redis.dupefilter.RFPDupeFilter"
+
+REDIS_HOST = os.getenv("REDIS_HOST", "localhost")
+REDIS_PORT = os.getenv("REDIS_PORT", 6379)
+REDIS_KEY = "%(spider)s:dupefilter"
+
+POSTGRES_HOST = os.getenv("POSTGRES_HOST", "localhost")
+POSTGRES_PORT = os.getenv("POSTGRES_PORT", 5432)
+POSTGRES_USER = os.getenv("POSTGRES_USER", "admin")
+POSTGRES_PASSWORD = os.getenv("POSTGRES_PASSWORD", "Admin123*")
+POSTGRES_DB_NAME = os.getenv("POSTGRES_DB", "up_blog_news")

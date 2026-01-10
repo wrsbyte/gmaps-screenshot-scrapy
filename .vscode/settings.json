@@ -4,6 +4,7 @@
     "pgadmin",
     "pyproject",
     "Scrapy",
-    "scrapyd"
+    "scrapyd",
+    "VARCHAR"
   ]
 }

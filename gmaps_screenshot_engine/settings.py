@@ -98,4 +98,6 @@ POSTGRES_HOST = os.getenv("POSTGRES_HOST", "localhost")
 POSTGRES_PORT = os.getenv("POSTGRES_PORT", 5432)
 POSTGRES_USER = os.getenv("POSTGRES_USER", "admin")
 POSTGRES_PASSWORD = os.getenv("POSTGRES_PASSWORD", "Admin123*")
-POSTGRES_DB_NAME = os.getenv("POSTGRES_DB", "up_blog_news")
+POSTGRES_DB = os.getenv("POSTGRES_DB", "database")
+
+GMAPS_BASE_URL = os.getenv("GMAPS_BASE_URL", "https://www.google.com")

@@ -1,0 +1,10 @@
+.env
+.env.example
+.gitignore
+.vscode
+compose.yml
+Dockerfile
+README.md
+.venv
+.ruff_cache
+data

@@ -1,0 +1,54 @@
+networks:
+  gmaps_screenshot_engine:
+    driver: bridge
+
+services:
+  postgres:
+    image: postgres:15-alpine
+    restart: unless-stopped
+    env_file:
+      - .env
+    volumes:
+      - ./data/postgres_data:/var/lib/postgresql/data
+    networks:
+      - gmaps_screenshot_engine
+
+  redis:
+    image: redis:alpine
+    restart: unless-stopped
+    env_file:
+      - .env
+    volumes:
+      - ./data/redis_data:/data
+    networks:
+      - gmaps_screenshot_engine
+
+  scrapyd:
+    build: .
+    restart: unless-stopped
+    ports:
+      - "6800:6800"
+    env_file:
+      - .env
+    volumes:
+      - ./data/scrapyd_data:/var/lib/scrapyd
+    networks:
+      - gmaps_screenshot_engine
+
+  pgadmin:
+    image: dpage/pgadmin4
+    restart: unless-stopped
+    ports:
+      - "5051:80"
+    env_file:
+      - .env
+    volumes:
+      - pgadmin_data:/var/lib/pgadmin
+    networks:
+      - gmaps_screenshot_engine
+
+volumes:
+  postgres_data:
+  redis_data:
+  scrapyd_data:
+  pgadmin_data:

@@ -4,7 +4,11 @@ version = "0.1.0"
 description = "Gmap Screenshot Engine"
 readme = "README.md"
 requires-python = ">=3.12"
-dependencies = []
+dependencies = [
+    "psycopg2-binary>=2.9.11",
+    "scrapy>=2.14.0",
+    "scrapy-redis>=0.9.1",
+]
 
 [dependency-groups]
 dev = [

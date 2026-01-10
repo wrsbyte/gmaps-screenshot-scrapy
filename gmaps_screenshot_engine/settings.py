@@ -1,4 +1,4 @@
-# Scrapy settings for gmap_screenshot_engine project
+# Scrapy settings for gmaps_screenshot_engine project
 #
 # For simplicity, this file contains only settings considered important or
 # commonly used. You can find more settings consulting the documentation:
@@ -7,16 +7,16 @@
 #     https://docs.scrapy.org/en/latest/topics/downloader-middleware.html
 #     https://docs.scrapy.org/en/latest/topics/spider-middleware.html
 
-BOT_NAME = "gmap_screenshot_engine"
+BOT_NAME = "gmaps_screenshot_engine"
 
-SPIDER_MODULES = ["gmap_screenshot_engine.spiders"]
-NEWSPIDER_MODULE = "gmap_screenshot_engine.spiders"
+SPIDER_MODULES = ["gmaps_screenshot_engine.spiders"]
+NEWSPIDER_MODULE = "gmaps_screenshot_engine.spiders"
 
 ADDONS = {}
 
 
 # Crawl responsibly by identifying yourself (and your website) on the user-agent
-# USER_AGENT = "gmap_screenshot_engine (+http://www.yourdomain.com)"
+# USER_AGENT = "gmaps_screenshot_engine (+http://www.yourdomain.com)"
 
 # Obey robots.txt rules
 ROBOTSTXT_OBEY = True
@@ -41,13 +41,13 @@ DOWNLOAD_DELAY = 1
 # Enable or disable spider middlewares
 # See https://docs.scrapy.org/en/latest/topics/spider-middleware.html
 # SPIDER_MIDDLEWARES = {
-#    "gmap_screenshot_engine.middlewares.GmapScreenshotEngineSpiderMiddleware": 543,
+#    "gmaps_screenshot_engine.middlewares.GmapsScreenshotEngineSpiderMiddleware": 543,
 # }
 
 # Enable or disable downloader middlewares
 # See https://docs.scrapy.org/en/latest/topics/downloader-middleware.html
 # DOWNLOADER_MIDDLEWARES = {
-#    "gmap_screenshot_engine.middlewares.GmapScreenshotEngineDownloaderMiddleware": 543,
+#    "gmaps_screenshot_engine.middlewares.GmapsScreenshotEngineDownloaderMiddleware": 543,
 # }
 
 # Enable or disable extensions
@@ -59,7 +59,7 @@ DOWNLOAD_DELAY = 1
 # Configure item pipelines
 # See https://docs.scrapy.org/en/latest/topics/item-pipeline.html
 # ITEM_PIPELINES = {
-#    "gmap_screenshot_engine.pipelines.GmapScreenshotEnginePipeline": 300,
+#    "gmaps_screenshot_engine.pipelines.GmapsScreenshotEnginePipeline": 300,
 # }
 
 # Enable and configure the AutoThrottle extension (disabled by default)

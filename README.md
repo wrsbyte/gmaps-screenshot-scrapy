@@ -39,7 +39,21 @@ make dev
 
 This command builds the images and starts the containers in the foreground.
 
-### 3. Development Commands
+### 3. Crawling
+
+```bash
+curl http://localhost:6800/schedule.json -d project=gmaps_screenshot_engine -d spider=gmaps-screenshot-spider
+```
+
+Using `cron` in production (Or any other scheduler):
+
+```bash
+# crawl every 15 minutes
+
+*/15 * * * * curl http://localhost:6800/schedule.json -d project=gmaps_screenshot_engine -d spider=gmaps-screenshot-spider
+```
+
+### 4. Development Commands
 
 Useful shortcuts defined in the `Makefile`:
 

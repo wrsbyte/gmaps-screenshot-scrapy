@@ -7,7 +7,6 @@ from gmaps_screenshot_engine.models import TargetLocationModel
 from gmaps_screenshot_engine.services import (
     CompressImageService,
     GMapsUrlService,
-    LocalSaverImageService,
     PostgresService,
     S3SaverImageService,
     TargetLocationService,
@@ -73,20 +72,15 @@ class GmapsScreenshotSpider(scrapy.Spider):
             type="png",
         )
 
-        file_name = f"{job_id}__{target_location.id}__{target_location.name.lower().replace(' ', '-')}__{target_location.latitude}_{target_location.longitude}__{target_location.gmaps_zoom}z"
+        file_name = f"{target_location.id}__{target_location.name.lower().replace(' ', '-')}__{target_location.latitude}_{target_location.longitude}__{target_location.gmaps_zoom}z"
 
-        file_path = f"{target_location.folder}/{file_name}.jpg"
+        file_path = f"{target_location.folder}/{job_id}/{file_name}.jpg"
 
         compress_image, size = CompressImageService.compress(
             image_bytes=screenshot_bytes,
         )
 
         await page.close()
-
-        LocalSaverImageService.save(
-            file_path=f"/var/lib/scrapyd/images/{file_path}",
-            image=compress_image,
-        )
 
         S3SaverImageService.save(
             file_path=file_path,

@@ -62,6 +62,12 @@ Useful shortcuts defined in the `Makefile`:
 - `make push` - Run format and lint checks before pushing.
 - `make clean` - Remove cache and temporary files.
 
+## ⚠️ Disclaimer
+
+Google's Terms of Service prohibit the scraping, collection, and storage of their intellectual property (including maps, images, and data). This project is intended for **educational and research purposes only**.
+
+**You must not use this software for any commercial purposes.** The authors and contributors are not responsible for any misuse of this tool or any legal consequences arising from its use. Please respect Google's policies and usage limits.
+
 ---
 
 <p align="center">

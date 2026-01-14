@@ -88,11 +88,13 @@ ITEM_PIPELINES = {
 # Set settings whose default value is deprecated to a future-proof value
 FEED_EXPORT_ENCODING = "utf-8"
 
-DUPEFILTER_CLASS = "scrapy_redis.dupefilter.RFPDupeFilter"
-
-REDIS_HOST = os.getenv("REDIS_HOST", "localhost")
-REDIS_PORT = os.getenv("REDIS_PORT", 6379)
-REDIS_KEY = "%(spider)s:dupefilter"
+#
+# Filter was commented out because it is not useful for this project
+#
+# DUPEFILTER_CLASS = "scrapy_redis.dupefilter.RFPDupeFilter"
+# REDIS_HOST = os.getenv("REDIS_HOST", "localhost")
+# REDIS_PORT = os.getenv("REDIS_PORT", 6379)
+# REDIS_KEY = "%(spider)s:dupefilter"
 
 POSTGRES_HOST = os.getenv("POSTGRES_HOST", "localhost")
 POSTGRES_PORT = os.getenv("POSTGRES_PORT", 5432)
@@ -124,3 +126,6 @@ AWS_ACCESS_KEY_ID = os.getenv("AWS_ACCESS_KEY_ID")
 AWS_SECRET_ACCESS_KEY = os.getenv("AWS_SECRET_ACCESS_KEY")
 AWS_REGION = os.getenv("AWS_REGION")
 AWS_BUCKET_NAME = os.getenv("AWS_BUCKET_NAME")
+
+FEED_URI = f"s3://{AWS_BUCKET_NAME}/feeds/%(name)s/%(time)s.jl"
+FEED_FORMAT = "jsonlines"

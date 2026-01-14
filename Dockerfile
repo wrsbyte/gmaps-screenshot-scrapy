@@ -34,13 +34,13 @@ ENV UV_HTTP_TIMEOUT=3600
 
 VOLUME /etc/scrapyd/ /var/lib/scrapyd/
 
-COPY ./scrapyd.conf /etc/scrapyd/
-
 COPY pyproject.toml uv.lock ./
 
 RUN uv sync --locked
 
 RUN playwright install firefox --with-deps
+
+COPY ./scrapyd.conf /etc/scrapyd/
 
 RUN mkdir -p /src/eggs/gmaps_screenshot_engine
 

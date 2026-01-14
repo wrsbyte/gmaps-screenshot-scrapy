@@ -8,6 +8,7 @@ class TargetLocationModel(BaseModel):
     id: int
     name: str
     description: Optional[str] = None
+    folder: str
     address: Optional[str] = None
     link: Optional[str] = None
     latitude: float

@@ -34,6 +34,7 @@ CREATE TABLE target_locations (
     id SERIAL PRIMARY KEY,
     name VARCHAR(255) NOT NULL,
     description TEXT,
+    folder VARCHAR(255) NOT NULL,
     address VARCHAR(255) NOT NULL,
     link VARCHAR(255) NOT NULL,
     latitude DECIMAL(10, 8) NOT NULL,
@@ -44,6 +45,28 @@ CREATE TABLE target_locations (
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
+
+CREATE INDEX idx_target_locations_folder ON target_locations(folder);
+
+CREATE TABLE gmaps_screenshots (
+    id SERIAL PRIMARY KEY,
+    target_location_id INT NOT NULL,
+    parent_folder VARCHAR(255) NOT NULL,
+    file_path VARCHAR(255) NOT NULL UNIQUE,
+    size INT NOT NULL,
+    job_id VARCHAR(255) NOT NULL,
+    captured_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE INDEX idx_gmaps_screenshots_target_location_id ON gmaps_screenshots(target_location_id);
+
+CREATE INDEX idx_gmaps_screenshots_file_path ON gmaps_screenshots(file_path);
+
+CREATE INDEX idx_gmaps_screenshots_job_id ON gmaps_screenshots(job_id);
+
+CREATE INDEX idx_gmaps_screenshots_captured_at ON gmaps_screenshots(captured_at);
 ```
 
 ## ✨ Insert data

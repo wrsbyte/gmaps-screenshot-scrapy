@@ -1,12 +1,12 @@
-# Define here the models for your scraped items
-#
-# See documentation in:
-# https://docs.scrapy.org/en/latest/topics/items.html
+from datetime import datetime
 
 import scrapy
 
 
-class GmapsScreenshotEngineItem(scrapy.Item):
-    # define the fields for your item here like:
-    # name = scrapy.Field()
-    pass
+class ScreenshotItem(scrapy.Item):
+    target_location_id = scrapy.Field()
+    parent_folder = scrapy.Field()
+    file_path = scrapy.Field()
+    size = scrapy.Field()
+    job_id = scrapy.Field()
+    captured_at = scrapy.Field(default=datetime.now())

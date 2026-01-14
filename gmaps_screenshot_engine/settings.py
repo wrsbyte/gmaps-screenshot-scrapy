@@ -60,9 +60,9 @@ DOWNLOAD_DELAY = 1
 
 # Configure item pipelines
 # See https://docs.scrapy.org/en/latest/topics/item-pipeline.html
-# ITEM_PIPELINES = {
-#    "gmaps_screenshot_engine.pipelines.GmapsScreenshotEnginePipeline": 300,
-# }
+ITEM_PIPELINES = {
+    # "gmaps_screenshot_engine.pipelines.GmapsScreenshotsPostgresExportPipeline": 300,
+}
 
 # Enable and configure the AutoThrottle extension (disabled by default)
 # See https://docs.scrapy.org/en/latest/topics/autothrottle.html
@@ -101,3 +101,26 @@ POSTGRES_PASSWORD = os.getenv("POSTGRES_PASSWORD", "Admin123*")
 POSTGRES_DB = os.getenv("POSTGRES_DB", "database")
 
 GMAPS_BASE_URL = os.getenv("GMAPS_BASE_URL", "https://www.google.com")
+
+# playwright
+
+DOWNLOAD_HANDLERS = {
+    "http": "scrapy_playwright.handler.ScrapyPlaywrightDownloadHandler",
+    "https": "scrapy_playwright.handler.ScrapyPlaywrightDownloadHandler",
+}
+
+TWISTED_REACTOR = "twisted.internet.asyncioreactor.AsyncioSelectorReactor"
+
+PLAYWRIGHT_BROWSER_TYPE = "firefox"
+PLAYWRIGHT_LAUNCH_OPTIONS = {
+    "headless": True,
+}
+
+PLAYWRIGHT_DEFAULT_NAVIGATION_TIMEOUT = 30_000
+
+# aws
+
+AWS_ACCESS_KEY_ID = os.getenv("AWS_ACCESS_KEY_ID")
+AWS_SECRET_ACCESS_KEY = os.getenv("AWS_SECRET_ACCESS_KEY")
+AWS_REGION = os.getenv("AWS_REGION")
+AWS_BUCKET_NAME = os.getenv("AWS_BUCKET_NAME")

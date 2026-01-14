@@ -1,6 +1,10 @@
+import io
+import os
 from urllib.parse import urlencode
 
+import boto3
 import psycopg2
+from PIL import Image
 
 from gmaps_screenshot_engine.models import TargetLocationModel
 
@@ -42,6 +46,7 @@ class TargetLocationService:
                     id,
                     name,
                     description,
+                    folder,
                     address,
                     link,
                     latitude,
@@ -52,6 +57,7 @@ class TargetLocationService:
                     created_at,
                     updated_at
                 FROM target_locations
+                WHERE active = true
             """)
 
             targets = cursor.fetchall()
@@ -62,15 +68,16 @@ class TargetLocationService:
                     id=target[0],
                     name=target[1],
                     description=target[2],
-                    address=target[3],
-                    link=target[4],
-                    latitude=target[5],
-                    longitude=target[6],
-                    gmaps_zoom=target[7],
-                    gmaps_extra_params=target[8],
-                    active=target[9],
-                    created_at=target[10],
-                    updated_at=target[11],
+                    folder=target[3],
+                    address=target[4],
+                    link=target[5],
+                    latitude=target[6],
+                    longitude=target[7],
+                    gmaps_zoom=target[8],
+                    gmaps_extra_params=target[9],
+                    active=target[10],
+                    created_at=target[11],
+                    updated_at=target[12],
                 )
                 for target in targets
             ]
@@ -99,12 +106,74 @@ class GMapsUrlService:
         """
 
         params = {
-            "zoom": target_location.gmaps_zoom,
-            "data": "!5m1!1e1",
             "entry": "ttu",
         }
 
         if target_location.gmaps_extra_params:
             params.update(target_location.gmaps_extra_params)
 
-        return f"{base_url}/maps/@{target_location.latitude},{target_location.longitude},{target_location.gmaps_zoom}z?{urlencode(params)}"
+        return f"{base_url}/maps/@{target_location.latitude},{target_location.longitude},{target_location.gmaps_zoom}z/data=!5m1!1e1?{urlencode(params)}"
+
+
+class LocalSaverImageService:
+    @classmethod
+    def save(cls, file_path: str, image: Image.Image):
+        """Save an image to a local file path, creating directories if they don't exist."""
+        os.makedirs(os.path.dirname(file_path), exist_ok=True)
+        image.save(
+            file_path,
+            format="JPEG",
+            quality=70,
+            optimize=True,
+            progressive=True,
+            subsampling=0,
+        )
+
+
+class S3SaverImageService:
+    @classmethod
+    def save(cls, file_path: str, image: Image.Image):
+        """Save an image to a S3 bucket."""
+        buffer = io.BytesIO()
+        image.save(
+            buffer,
+            format="JPEG",
+            quality=70,
+            optimize=True,
+            progressive=True,
+            subsampling=0,
+        )
+
+        buffer.seek(0)
+
+        s3_client = boto3.client(
+            "s3",
+            aws_access_key_id=os.getenv("AWS_ACCESS_KEY_ID"),
+            aws_secret_access_key=os.getenv("AWS_SECRET_ACCESS_KEY"),
+            region_name=os.getenv("AWS_REGION"),
+        )
+
+        s3_client.upload_fileobj(
+            Fileobj=buffer,
+            Bucket=os.getenv("AWS_BUCKET_NAME"),
+            Key=file_path,
+        )
+
+
+class CompressImageService:
+    @classmethod
+    def compress(cls, image_bytes: bytes):
+        image = Image.open(io.BytesIO(image_bytes)).convert("RGB")
+
+        image = image.resize((854, 480), Image.Resampling.LANCZOS)
+
+        image = image.quantize(
+            colors=128,
+            method=Image.Quantize.FASTOCTREE,
+            dither=Image.Dither.NONE,
+        )
+        image = image.convert("RGB")
+
+        new_disk_size = image.size
+
+        return image, new_disk_size

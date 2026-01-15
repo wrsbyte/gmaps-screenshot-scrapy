@@ -71,6 +71,7 @@ services:
       - AWS_SECRET_ACCESS_KEY=${AWS_SECRET_ACCESS_KEY}
       - AWS_REGION=${AWS_REGION}
       - AWS_BUCKET_NAME=${AWS_BUCKET_NAME}
+      - FEEDS_FOLDER=${FEEDS_FOLDER}
     networks:
       - gmaps_screenshot_engine
     logging:

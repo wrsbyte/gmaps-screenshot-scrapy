@@ -127,5 +127,6 @@ AWS_SECRET_ACCESS_KEY = os.getenv("AWS_SECRET_ACCESS_KEY")
 AWS_REGION = os.getenv("AWS_REGION")
 AWS_BUCKET_NAME = os.getenv("AWS_BUCKET_NAME")
 
-FEED_URI = f"s3://{AWS_BUCKET_NAME}/feeds/%(name)s/%(time)s.jl"
+FEEDS_FOLDER = os.getenv("FEEDS_FOLDER", "local/feeds")
+FEED_URI = f"s3://{AWS_BUCKET_NAME}/{FEEDS_FOLDER}/%(name)s/%(time)s.jl"
 FEED_FORMAT = "jsonlines"

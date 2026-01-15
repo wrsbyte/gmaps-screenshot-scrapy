@@ -9,6 +9,12 @@ services:
       interval: 10s
       timeout: 5s
       retries: 5
+    env:
+      - POSTGRES_HOST=${POSTGRES_HOST}
+      - POSTGRES_PORT=${POSTGRES_PORT}
+      - POSTGRES_USER=${POSTGRES_USER}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+      - POSTGRES_DB=${POSTGRES_DB}
     logging:
       options:
         max-size: "50m"
@@ -24,6 +30,10 @@ services:
       interval: 10s
       timeout: 5s
       retries: 5
+    env:
+      - REDIS_HOST=${REDIS_HOST}
+      - REDIS_PORT=${REDIS_PORT}
+      - REDIS_PASSWORD=${REDIS_PASSWORD}
     logging:
       options:
         max-size: "50m"
@@ -40,6 +50,20 @@ services:
       timeout: 10s
       retries: 3
       start_period: 10s
+    env:
+      - POSTGRES_HOST=${POSTGRES_HOST}
+      - POSTGRES_PORT=${POSTGRES_PORT}
+      - POSTGRES_USER=${POSTGRES_USER}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+      - POSTGRES_DB=${POSTGRES_DB}
+      - REDIS_HOST=${REDIS_HOST}
+      - REDIS_PORT=${REDIS_PORT}
+      - REDIS_PASSWORD=${REDIS_PASSWORD}
+      - GMAPS_BASE_URL=${GMAPS_BASE_URL}
+      - AWS_ACCESS_KEY_ID=${AWS_ACCESS_KEY_ID}
+      - AWS_SECRET_ACCESS_KEY=${AWS_SECRET_ACCESS_KEY}
+      - AWS_REGION=${AWS_REGION}
+      - AWS_BUCKET_NAME=${AWS_BUCKET_NAME}
     logging:
       options:
         max-size: "50m"
@@ -50,6 +74,9 @@ services:
     restart: unless-stopped
     volumes:
       - pgadmin_data:/var/lib/pgadmin
+    env:
+      - PGADMIN_DEFAULT_EMAIL=${PGADMIN_DEFAULT_EMAIL}
+      - PGADMIN_DEFAULT_PASSWORD=${PGADMIN_DEFAULT_PASSWORD}
     logging:
       options:
         max-size: "50m"

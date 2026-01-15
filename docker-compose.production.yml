@@ -15,6 +15,8 @@ services:
       - POSTGRES_USER=${POSTGRES_USER}
       - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
       - POSTGRES_DB=${POSTGRES_DB}
+    networks:
+      - gmap_screenshot_engine
     logging:
       options:
         max-size: "50m"
@@ -34,6 +36,8 @@ services:
       - REDIS_HOST=${REDIS_HOST}
       - REDIS_PORT=${REDIS_PORT}
       - REDIS_PASSWORD=${REDIS_PASSWORD}
+    networks:
+      - gmap_screenshot_engine
     logging:
       options:
         max-size: "50m"
@@ -67,6 +71,8 @@ services:
       - AWS_SECRET_ACCESS_KEY=${AWS_SECRET_ACCESS_KEY}
       - AWS_REGION=${AWS_REGION}
       - AWS_BUCKET_NAME=${AWS_BUCKET_NAME}
+    networks:
+      - gmap_screenshot_engine
     logging:
       options:
         max-size: "50m"
@@ -82,10 +88,16 @@ services:
     environment:
       - PGADMIN_DEFAULT_EMAIL=${PGADMIN_DEFAULT_EMAIL}
       - PGADMIN_DEFAULT_PASSWORD=${PGADMIN_DEFAULT_PASSWORD}
+    networks:
+      - gmap_screenshot_engine
     logging:
       options:
         max-size: "50m"
         max-file: "3"
+
+networks:
+  gmap_screenshot_engine:
+    driver: bridge
 
 volumes:
   postgres_data:

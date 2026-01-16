@@ -26,6 +26,8 @@ class GmapsScreenshotSpider(scrapy.Spider):
 
         job_id = str(uuid.uuid4())
 
+        crawler.stats.set_value("job_id", job_id, spider=self)
+
         target_location_service = TargetLocationService(
             postgres_service=PostgresService(
                 host=settings.get("POSTGRES_HOST"),

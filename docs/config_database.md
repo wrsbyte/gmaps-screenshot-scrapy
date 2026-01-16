@@ -67,6 +67,27 @@ CREATE INDEX idx_gmaps_screenshots_file_path ON gmaps_screenshots(file_path);
 CREATE INDEX idx_gmaps_screenshots_job_id ON gmaps_screenshots(job_id);
 
 CREATE INDEX idx_gmaps_screenshots_captured_at ON gmaps_screenshots(captured_at);
+
+CREATE TABLE scrapy_run_stats (
+    id SERIAL PRIMARY KEY,
+    job_id VARCHAR(255) NOT NULL,
+    started_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    finished_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    elapsed_time_seconds INT NOT NULL,
+    item_scraped_count INT NOT NULL,
+    finish_reason VARCHAR(255) NOT NULL,
+    responses_per_minute INT NOT NULL,
+    items_per_minute INT NOT NULL,
+    stats JSONB NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE INDEX idx_scrapy_run_stats_job_id ON scrapy_run_stats(job_id);
+
+CREATE INDEX idx_scrapy_run_stats_started_at ON scrapy_run_stats(started_at);
+
+CREATE INDEX idx_scrapy_run_stats_finished_at ON scrapy_run_stats(finished_at);
 ```
 
 ## ✨ Insert data
